@@ -5,10 +5,23 @@ import os
 root = os.path.abspath(os.path.dirname(__file__))
 
 try:
-    from setuptools import setup
+    from setuptools import setup, Command
 except ImportError:
-    from distutils.core import setup
+    from distutils.core import setup, Command
 
+
+class PyTest(Command):
+    user_options = []
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        import subprocess
+        errno = subprocess.call(['py.test'])
+        raise SystemExit(errno)
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -51,5 +64,6 @@ setup(
         'Programming Language :: Python :: 3.4',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    cmdclass = {'test': PyTest}
 )
