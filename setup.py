@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 
+root = os.path.abspath(os.path.dirname(__file__))
 
 try:
     from setuptools import setup
@@ -14,13 +16,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-requirements = [
-    # TODO: put package requirements here
-]
+with open(os.path.join(root, "requirements.txt")) as reqs:
+    requirements = [r.strip() for r in reqs.readlines()]
 
-test_requirements = [
-    # TODO: put package test requirements here
-]
+with open(os.path.join(root, "requirements-dev.txt")) as reqs:
+    test_requirements = [r.strip() for r in reqs.readlines()]
 
 setup(
     name='luh3417',
@@ -37,16 +37,14 @@ setup(
                  'luh3417'},
     include_package_data=True,
     install_requires=requirements,
-    license="BSD",
+    license="Apache",
     zip_safe=False,
     keywords='luh3417',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
